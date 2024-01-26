@@ -32,7 +32,7 @@ async function agregarCasoBorde(titulo, url, cuerpo) {
                     object: 'block',
                     type: 'paragraph',
                     paragraph: {
-                        text: [
+                        rich_text: [
                             {
                                 type: 'text',
                                 text: {
