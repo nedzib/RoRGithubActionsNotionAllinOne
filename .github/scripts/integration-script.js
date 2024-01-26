@@ -98,14 +98,13 @@ function determinarTags(titulo, cuerpo) {
 // Obtén datos del evento de GitHub
 const eventoGitHub = process.argv[2];
 console.log('Evento de GitHub:', eventoGitHub);
-const tituloPR = process.argv[3];
-console.log('Título del PR:', tituloPR);
-const urlPR = process.argv[4];
+const urlPR = process.argv[3];
 console.log('URL del PR:', urlPR);
+const tituloPR = process.argv[4];
+console.log('Título del PR:', tituloPR);
 const cuerpoPR = process.argv[5];
 console.log('Cuerpo del PR:', cuerpoPR);
 const autorPR = process.argv[6];
 console.log('Autor del PR:', autorPR);
 
-console.log("cosa", process.argv)
 agregarCasoBorde(tituloPR, urlPR, cuerpoPR, autorPR);
