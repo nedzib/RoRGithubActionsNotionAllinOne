@@ -11,13 +11,13 @@ const patrones_tags = [
         "vacaciones": ["vacaciones", "vacas"],
         "permiso": ["permiso", "permisos"],
         "BBSS": ["BBSS", "beneficios sociales"],
-        "Finiquito": ["finiquito"],
+        "Finiquito": ["finiquito", "trunco", "truncas"],
         "Liquidacion": ["boletas", "lineas", "liquidacion", "liquidaciones"],
     }
 ]
 
 // Función para agregar un nuevo caso borde a la base de datos de Notion
-async function agregarCasoBorde(titulo, url, cuerpo) {
+async function agregarCasoBorde(titulo, url, cuerpo, autor) {
     try {
         const tags = determinarTags(titulo, cuerpo);
 
@@ -40,6 +40,16 @@ async function agregarCasoBorde(titulo, url, cuerpo) {
                 },
                 Tags: {
                     multi_select: tags.map(tag => ({ name: tag })),
+                },
+                Autor: {
+                    rich_text: [
+                        {
+                            type: 'text',
+                            text: {
+                                content: autor,
+                            },
+                        },
+                    ],
                 },
             },
             children: [
@@ -94,5 +104,7 @@ const urlPR = process.argv[4];
 console.log('URL del PR:', urlPR);
 const cuerpoPR = process.argv[5];
 console.log('Cuerpo del PR:', cuerpoPR);
+const autorPR = process.argv[6];
+console.log('Autor del PR:', autorPR);
 
-agregarCasoBorde(tituloPR, urlPR, cuerpoPR);
+agregarCasoBorde(tituloPR, urlPR, cuerpoPR, autorPR);

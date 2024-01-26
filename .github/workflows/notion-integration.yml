@@ -25,9 +25,10 @@ jobs:
         run: |
           node .github/scripts/integration-script.js \
             ${{ github.event_name }} \
-            "${{ github.event.pull_request.title }}" \
             ${{ github.event.pull_request.html_url }} \
-            "${{ github.event.pull_request.body }}"
+            "${{ github.event.pull_request.title }}" \
+            "${{ github.event.pull_request.body }}" \
+            "${{ github.actor }}" \
         env:
           TU_TOKEN_DE_NOTION: ${{ secrets.NOTION_TOKEN }}
           ID_DE_TU_BASE_DE_DATOS_EN_NOTION: 1b198288615048e489aa159e8f6ecab5
