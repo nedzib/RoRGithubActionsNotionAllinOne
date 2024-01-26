@@ -107,4 +107,5 @@ console.log('Cuerpo del PR:', cuerpoPR);
 const autorPR = process.argv[6];
 console.log('Autor del PR:', autorPR);
 
+console.log("cosa", process.argv)
 agregarCasoBorde(tituloPR, urlPR, cuerpoPR, autorPR);
