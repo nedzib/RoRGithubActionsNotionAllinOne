@@ -6,9 +6,21 @@ console.log("Notion Database ID: ", process.env.ID_DE_TU_BASE_DE_DATOS_EN_NOTION
 // Configura el cliente de Notion con tu token de integración
 const notion = new Client({ auth: process.env.TU_TOKEN_DE_NOTION });
 
+const patrones_tags = [
+    {
+        "vacaciones": ["vacaciones", "vacas"],
+        "permiso": ["permiso", "permisos"],
+        "BBSS": ["BBSS", "beneficios sociales"],
+        "Finiquito": ["finiquito"],
+        "Liquidacion": ["boletas", "lineas", "liquidacion", "liquidaciones"],
+    }
+]
+
 // Función para agregar un nuevo caso borde a la base de datos de Notion
 async function agregarCasoBorde(titulo, url, cuerpo) {
     try {
+        const tags = determinarTags(titulo, cuerpo);
+
         const response = await notion.pages.create({
             parent: {
                 database_id: process.env.ID_DE_TU_BASE_DE_DATOS_EN_NOTION,
@@ -25,6 +37,9 @@ async function agregarCasoBorde(titulo, url, cuerpo) {
                 },
                 URL: {
                     url: url,
+                },
+                Tags: {
+                    multi_select: tags.map(tag => ({ name: tag })),
                 },
             },
             children: [
@@ -49,6 +64,24 @@ async function agregarCasoBorde(titulo, url, cuerpo) {
     } catch (error) {
         console.error('Error al agregar caso borde a Notion:', error.body);
     }
+}
+
+function determinarTags(titulo, cuerpo) {
+    const tagsEncontrados = [];
+
+    patrones_tags.forEach((patron) => {
+        for (const tag in patron) {
+            const palabrasClave = patron[tag];
+            const palabrasEnTitulo = palabrasClave.some(palabra => titulo.toLowerCase().includes(palabra));
+            const palabrasEnCuerpo = palabrasClave.some(palabra => cuerpo.toLowerCase().includes(palabra));
+
+            if (palabrasEnTitulo || palabrasEnCuerpo) {
+                tagsEncontrados.push(tag);
+            }
+        }
+    });
+
+    return tagsEncontrados;
 }
 
 
