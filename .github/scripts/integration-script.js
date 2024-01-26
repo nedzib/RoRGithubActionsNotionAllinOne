@@ -10,7 +10,7 @@ const patrones_tags = [
     {
         "vacaciones": ["vacaciones", "vacas"],
         "permiso": ["permiso", "permisos"],
-        "BBSS": ["BBSS", "beneficios sociales"],
+        "BBSS": ["BBSS", "beneficios sociales", "vacaciones", "prima"],
         "Finiquito": ["finiquito", "trunco", "truncas"],
         "Liquidacion": ["boletas", "lineas", "liquidacion", "liquidaciones"],
     }
